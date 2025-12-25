@@ -1,73 +1,48 @@
-# Welcome to your Lovable project
+# LabOS – Laboratory Inventory Management
 
-## Project info
+Supabase destekli, React + Vite + TypeScript ile yazılmış laboratuvar envanter takip uygulaması.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Gereksinimler
+- Node.js 18+ (npm ile geliyor)
+- Supabase proje bilgileri (`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`) `.env` dosyasında olmalı. `.env` repoda yok, kendi değerlerinle oluştur.
 
-## How can I edit this code?
+## Kurulum ve Çalıştırma (Geliştirme)
+```bash
+# Bağımlılıkları kur
+npm install
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Dev sunucu (http://localhost:5173)
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Supabase Kurulumu (kendi projen için)
+1) Supabase’te yeni proje aç.
+2) `supabase/migrations/20251222131146_53c62f9a-cb24-4ef6-8a4f-b85f8bf90059.sql` dosyasını SQL Editor’da çalıştırarak tablo, RLS ve fonksiyonları oluştur.
+3) `.env` dosyanı aşağıdaki formatta oluştur:
+```
+VITE_SUPABASE_URL="https://<proje_ref>.supabase.co"
+VITE_SUPABASE_PUBLISHABLE_KEY="<anon_key>"
+VITE_SUPABASE_PROJECT_ID="<proje_ref>"
+```
+4) Giriş yaptıktan sonra admin rolü için gerekirse:
+```sql
+insert into public.user_roles (user_id, role)
+values ('<KULLANICI_ID>', 'admin')
+on conflict (user_id, role) do nothing;
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Üretim build’i
+```bash
+npm run build
+```
+`dist/` içeriğini statik bir sunucuyla yayınlayabilir veya herhangi bir hosting’e yükleyebilirsin.
 
-**Use GitHub Codespaces**
+## Hızlı başlatma (Windows)
+`start_labos.bat` dosyasına çift tıkla:
+- Node’u bulur, yoksa uyarır.
+- `node_modules` yoksa `npm install` yapar.
+- `npm run dev` başlatır ve tarayıcıda `http://localhost:5173` açar.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Notlar
+- `.env` repoya eklenmez; kendi değerlerinle yerelde oluştur.
+- Logo/Favicon: `public/icon_no_bg.png` ve `public/favicon.svg/png`.
