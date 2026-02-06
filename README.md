@@ -16,7 +16,7 @@ npm run dev
 ```
 
 ## Supabase Kurulumu (kendi projen için)
-1) Supabase’te yeni proje aç.
+1) Supabase’te yeni bir proje aç.
 2) `supabase/migrations/20251222131146_53c62f9a-cb24-4ef6-8a4f-b85f8bf90059.sql` dosyasını SQL Editor’da çalıştırarak tablo, RLS ve fonksiyonları oluştur.
 3) `.env` dosyanı aşağıdaki formatta oluştur:
 ```
